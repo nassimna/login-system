@@ -6,12 +6,13 @@ import Home from "./component/home";
 import { PrivateRoute } from "./routers/private";
 import { PublicRoute } from "./routers/public";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
+          <PrivateRoute exact path="/" component={Home} />
           <PublicRoute
             restricted={true}
             exact
@@ -24,7 +25,6 @@ function App() {
             path="/signup"
             component={Signup}
           />
-          <PrivateRoute exact path="/home" component={Home} />
         </Switch>
       </Router>
     </div>

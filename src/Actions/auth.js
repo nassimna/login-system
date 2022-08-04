@@ -6,7 +6,7 @@ export const login = (user, history) => async (dispatch) => {
       localStorage.setItem("profile", JSON.stringify(data));
     }
     dispatch({ type: "LOGIN", data });
-    history.push("/home");
+    history.push("/");
   } catch (error) {
     console.log(error);
     dispatch({ type: "LOGIN_ERROR", error });

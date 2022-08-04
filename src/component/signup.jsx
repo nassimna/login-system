@@ -1,4 +1,5 @@
 import { React, useEffect } from "react";
+import "./style.css";
 import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -7,13 +8,12 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import Link from "@mui/material/Link";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,36 +65,13 @@ export default function Signup() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="100%">
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
+        <Box className="main-box">
           <Avatar sx={{ m: 1, bgcolor: "#36C5F1" }}>
             <LockOutlinedIcon style={{ color: "white" }} />
           </Avatar>
-          <div
-            style={
-              msg != ""
-                ? {
-                    width: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "#FFBABA",
-                    color: "#D8000C",
-                  }
-                : {}
-            }
-          >
+          <div className={msg != "" ? "error-div" : ""}>
             <p>{msg}</p>
           </div>
-
           <div style={{ width: "50%" }}>
             <Grid
               container

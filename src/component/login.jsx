@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from "react";
+import "./style.css";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +12,7 @@ import Link from "@mui/material/Link";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../Actions/auth";
 import { useHistory } from "react-router-dom";
+
 const theme = createTheme();
 
 export default function Login() {
@@ -34,33 +36,11 @@ export default function Login() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="100%">
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
+        <Box className="main-box">
           <Avatar sx={{ m: 1, bgcolor: "#36C5F1" }}>
             <LockOutlinedIcon style={{ color: "white" }} />
           </Avatar>
-          <div
-            style={
-              msg != ""
-                ? {
-                    width: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "#FFBABA",
-                    color: "#D8000C",
-                  }
-                : {}
-            }
-          >
+          <div className={msg != "" ? "error-div" : ""}>
             <p>{msg}</p>
           </div>
           <Box component="form" noValidate sx={{ mt: 1, width: "30%" }}>

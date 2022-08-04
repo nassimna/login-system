@@ -6,7 +6,6 @@ const authReducer = (state = [], action) => {
       return [...state, action.payload];
     case "LOGOUT":
       localStorage.clear();
-
       return [...state, action.payload];
     case "LOGIN_ERROR":
       return [...state, action.error];
