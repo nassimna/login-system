@@ -43,7 +43,7 @@ export default function Login() {
           <div className={msg != "" ? "error-div" : ""}>
             <p>{msg}</p>
           </div>
-          <Box component="form" noValidate sx={{ mt: 1, width: "30%" }}>
+          <Box component="form" noValidate sx={{ mt: 1, width: "50%" }}>
             <TextField
               margin="normal"
               required

@@ -7,17 +7,19 @@ export const PrivateRoute = ({ component: Component, roles, ...rest }) => (
     render={(props) => {
       const user = JSON.parse(localStorage.getItem("profile"));
       const token = user?.access;
+      const decodedToken = decode(token);
+
+      console.log(decodedToken);
+
+      var currentTimestamp = new Date().getTime() / 1000;
+      var tokenIsNotExpired = decodedToken.exp > currentTimestamp;
+      console.log(tokenIsNotExpired);
       if (!token) {
         return <Redirect to="/login" />;
       }
-      if (token) {
-        const decodedToken = decode(token);
-        if (new Date().getTime() / 1000 > decodedToken.exp) {
-          console.log(new Date().getTime() / 1000 < decodedToken.exp);
-          return <Component {...props} />;
-        } else {
-          return <Redirect to="/login" />;
-        }
+
+      if (token && tokenIsNotExpired) {
+        return <Component {...props} />;
       } else {
         return <Redirect to="/login" />;
       }
