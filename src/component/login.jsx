@@ -32,17 +32,7 @@ export default function Login() {
   }, [errorr]);
   return (
     <ThemeProvider theme={theme}>
-      <Container
-        component="main"
-        maxWidth="100%"
-        style={{
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-
-          zIndex: "999",
-        }}
-      >
+      <Container component="main" maxWidth="100%">
         <CssBaseline />
         <Box
           sx={{
@@ -50,6 +40,8 @@ export default function Login() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "#36C5F1" }}>
