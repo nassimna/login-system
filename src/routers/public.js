@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import decode from "jwt-decode";
 export const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const token = user?.access;
@@ -9,15 +8,11 @@ export const PublicRoute = ({ component: Component, restricted, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
+        if (!token) {
+          return <Component {...props} />;
+        }
         if (token && restricted) {
-          const decodedToken = decode(token);
-          var currentTimestamp = new Date().getTime() / 1000;
-          var tokenIsNotExpired = decodedToken.exp > currentTimestamp;
-          if (tokenIsNotExpired) {
-            return <Redirect to="/" />;
-          } else {
-            return <Component {...props} />;
-          }
+          return <Redirect to="/" />;
         } else {
           return <Component {...props} />;
         }
