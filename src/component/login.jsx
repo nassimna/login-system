@@ -1,49 +1,52 @@
-import { React, useEffect, useState } from "react";
-import "./style.css";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Link from "@mui/material/Link";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../Actions/auth";
-import { useHistory } from "react-router-dom";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Link from '@mui/material/Link';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import { React, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { login } from '../Actions/auth';
+import './style.css';
 
 const theme = createTheme();
 
 export default function Login() {
   const history = useHistory();
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
   const errorr = useSelector((state) => state.authReducer);
-  //console.log("from login", errorr[0].message);
   const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
-    let form = { username: username, password: password };
+    const form = { username, password };
     dispatch(login(form, history));
   };
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState('');
 
   useEffect(() => {
-    errorr[0] != null ? setMsg(errorr[0].response.data.Message) : setMsg("");
+    if (errorr[0] !== undefined) {
+      setMsg(errorr[0].response.data.Message);
+    } else {
+      setMsg('');
+    }
   }, [errorr]);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="100%">
         <CssBaseline />
         <Box className="main-box">
-          <Avatar sx={{ m: 1, bgcolor: "#36C5F1" }}>
-            <LockOutlinedIcon style={{ color: "white" }} />
+          <Avatar sx={{ m: 1, bgcolor: '#36C5F1' }}>
+            <LockOutlinedIcon style={{ color: 'white' }} />
           </Avatar>
-          <div className={msg != "" ? "error-div" : ""}>
+          <div className={msg !== '' || msg !== undefined ? 'error-div' : ''}>
             <p>{msg}</p>
           </div>
-          <Box component="form" noValidate sx={{ mt: 1, width: "50%" }}>
+          <Box component="form" noValidate sx={{ mt: 1, width: '50%' }}>
             <TextField
               margin="normal"
               required
@@ -76,15 +79,14 @@ export default function Login() {
               sx={{
                 mt: 3,
                 mb: 2,
-                color: "white",
-                backgroundColor: "#36C5F1",
+                color: 'white',
+                backgroundColor: '#36C5F1',
               }}
               onClick={handleSubmit}
             >
               LOGIN
             </Button>
-
-            <Link href="signup">{"Don't have an account? Sign Up"}</Link>
+            <Link href="signup">Don&apos;t have an account? Sign Up</Link>
           </Box>
         </Box>
       </Container>

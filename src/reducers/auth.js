@@ -1,13 +1,13 @@
-const authReducer = (state = [], action) => {
+const authReducer = (action, state = []) => {
   switch (action.type) {
-    case "LOGIN":
+    case 'LOGIN':
       return [...state, action.payload];
-    case "SIGNUP":
+    case 'SIGNUP':
       return [...state, action.payload];
-    case "LOGOUT":
+    case 'LOGOUT':
       localStorage.clear();
       return [...state, action.payload];
-    case "LOGIN_ERROR":
+    case 'LOGIN_ERROR':
       return [...state, action.error];
     default:
       return state;

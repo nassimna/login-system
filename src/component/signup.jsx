@@ -1,52 +1,44 @@
-import { React, useEffect } from "react";
-import "./style.css";
-import { useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-import Link from "@mui/material/Link";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../Actions/auth";
-import { useHistory } from "react-router-dom";
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
+import Link from '@mui/material/Link';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import { React, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { signup } from '../Actions/auth';
+import './style.css';
+
 const theme = createTheme();
 
 export default function Signup() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState('');
   const errorr = useSelector((state) => state.authReducer);
 
   const [userData, setUser] = useState({
-    first_name: "",
-    password: "",
-    last_name: "",
-    email: "",
-    telephone: "",
-    username: "",
+    first_name: '',
+    password: '',
+    last_name: '',
+    email: '',
+    telephone: '',
+    username: '',
     profession: 1,
     plan: 1,
   });
   const handleSubmit = (event) => {
     event.preventDefault();
-    let form = {
+    const form = {
       first_name: userData.first_name,
       password: userData.password,
       last_name: userData.last_name,
@@ -59,20 +51,24 @@ export default function Signup() {
     dispatch(signup(form, history));
   };
   useEffect(() => {
-    errorr[0] != null ? setMsg(errorr[0].response.data.Message) : setMsg("");
+    if (errorr[0] !== undefined) {
+      setMsg(errorr[0].response.data.Message);
+    } else {
+      setMsg('');
+    }
   }, [errorr]);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="100%">
         <CssBaseline />
         <Box className="main-box">
-          <Avatar sx={{ m: 1, bgcolor: "#36C5F1" }}>
-            <LockOutlinedIcon style={{ color: "white" }} />
+          <Avatar sx={{ m: 1, bgcolor: '#36C5F1' }}>
+            <LockOutlinedIcon style={{ color: 'white' }} />
           </Avatar>
-          <div className={msg != "" ? "error-div" : ""}>
+          <div className={msg !== '' ? 'error-div' : ''}>
             <p>{msg}</p>
           </div>
-          <div style={{ width: "50%" }}>
+          <div style={{ width: '50%' }}>
             <Grid
               container
               rowSpacing={1}
@@ -91,9 +87,7 @@ export default function Signup() {
                   name="firstName"
                   autoComplete="firstName"
                   autoFocus
-                  onChange={(e) =>
-                    setUser({ ...userData, first_name: e.target.value })
-                  }
+                  onChange={(e) => setUser({ ...userData, first_name: e.target.value })}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -106,9 +100,7 @@ export default function Signup() {
                   name="lastName"
                   autoComplete="lastName"
                   autoFocus
-                  onChange={(e) =>
-                    setUser({ ...userData, last_name: e.target.value })
-                  }
+                  onChange={(e) => setUser({ ...userData, last_name: e.target.value })}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -121,13 +113,11 @@ export default function Signup() {
                   name="userName"
                   autoComplete="userName"
                   autoFocus
-                  onChange={(e) =>
-                    setUser({ ...userData, username: e.target.value })
-                  }
+                  onChange={(e) => setUser({ ...userData, username: e.target.value })}
                 />
               </Grid>
               <Grid item xs={6}>
-                {" "}
+                {' '}
                 <TextField
                   margin="normal"
                   required
@@ -137,9 +127,7 @@ export default function Signup() {
                   name="email"
                   autoComplete="email"
                   autoFocus
-                  onChange={(e) =>
-                    setUser({ ...userData, email: e.target.value })
-                  }
+                  onChange={(e) => setUser({ ...userData, email: e.target.value })}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -152,9 +140,7 @@ export default function Signup() {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  onChange={(e) =>
-                    setUser({ ...userData, password: e.target.value })
-                  }
+                  onChange={(e) => setUser({ ...userData, password: e.target.value })}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -167,13 +153,11 @@ export default function Signup() {
                   type="telephone"
                   id="telephone"
                   autoComplete="current-telephone"
-                  onChange={(e) =>
-                    setUser({ ...userData, telephone: e.target.value })
-                  }
+                  onChange={(e) => setUser({ ...userData, telephone: e.target.value })}
                 />
               </Grid>
               <Grid item xs={6}>
-                {" "}
+                {' '}
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">
                     Profession
@@ -183,9 +167,7 @@ export default function Signup() {
                     id="demo-simple-select"
                     value={userData.profession}
                     label="Plan"
-                    onChange={(e) =>
-                      setUser({ ...userData, profession: e.target.value })
-                    }
+                    onChange={(e) => setUser({ ...userData, profession: e.target.value })}
                   >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
@@ -195,7 +177,7 @@ export default function Signup() {
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
-                {" "}
+                {' '}
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Plan</InputLabel>
                   <Select
@@ -203,9 +185,7 @@ export default function Signup() {
                     id="demo-simple-select"
                     value={userData.plan}
                     label="Age"
-                    onChange={(e) =>
-                      setUser({ ...userData, plan: e.target.value })
-                    }
+                    onChange={(e) => setUser({ ...userData, plan: e.target.value })}
                   >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
@@ -219,8 +199,8 @@ export default function Signup() {
           <Box
             noValidate
             sx={{
-              display: "flex",
-              flexDirection: "column",
+              display: 'flex',
+              flexDirection: 'column',
               mt: 1,
             }}
           >
@@ -231,8 +211,8 @@ export default function Signup() {
               sx={{
                 mt: 3,
                 mb: 2,
-                color: "white",
-                backgroundColor: "#36C5F1",
+                color: 'white',
+                backgroundColor: '#36C5F1',
               }}
               onClick={handleSubmit}
             >
